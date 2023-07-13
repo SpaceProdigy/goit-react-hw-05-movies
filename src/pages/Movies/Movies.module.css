@@ -1,0 +1,14 @@
+.Text {
+    height: 100%;
+    width: 100%;
+
+}
+
+.Wrapper {
+    margin: 0 auto;
+    width: 320px;
+    height: 40px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+
+}

@@ -1,0 +1,60 @@
+.title {
+
+    margin: 0;
+
+
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 16px;
+
+    @media (min-width: 576px) {
+        flex-direction: row;
+        align-items: start;
+    }
+}
+
+.table {
+    @media (min-width: 576px) {
+        width: 50%;
+    }
+
+}
+
+.stars {
+    /* margin-left: 10px; */
+    font-size: 15px;
+
+}
+
+.movieCol {
+    position: relative;
+    width: 100%;
+    padding: 8px;
+    cursor: zoom-in;
+    transition: transform 1s ease;
+
+
+    @media (min-width: 576px) {
+        width: 50%;
+    }
+
+    @media (min-width: 768px) {
+        width: 33.33%;
+    }
+
+    @media (min-width: 992px) {
+        width: 25%;
+    }
+
+    @media (min-width: 1200px) {
+        width: 20%;
+    }
+
+
+}

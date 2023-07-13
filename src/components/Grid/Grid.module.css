@@ -1,0 +1,117 @@
+.movieRow {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+
+}
+
+.wrapper {
+    width: calc(100% - 15px);
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0) 63.48%, rgba(0, 0, 0, .9) 92.16%);
+
+    position: absolute;
+    top: 0;
+
+
+}
+
+.wrapperInfo {
+
+    position: absolute;
+    bottom: 10px;
+    width: calc(100% - 15px);
+
+}
+
+.movieCol {
+    position: relative;
+    width: 100%;
+    padding: 8px;
+    cursor: zoom-in;
+    transition: transform 1s ease;
+
+
+    @media (min-width: 576px) {
+        width: 50%;
+    }
+
+    @media (min-width: 768px) {
+        width: 33.33%;
+    }
+
+    @media (min-width: 992px) {
+        width: 25%;
+    }
+
+    @media (min-width: 1200px) {
+        width: 20%;
+    }
+
+
+}
+
+
+.movieCol:hover {
+    transform: scale(1.05)
+}
+
+.title {
+
+    margin: 0;
+    text-align: center;
+    padding: 16px 0;
+
+
+}
+
+
+.movieImage {
+    width: 100%;
+    height: auto;
+}
+
+.movieTitle {
+    color: white;
+    margin: 0;
+    margin: 8px;
+
+    max-height: 50px;
+    text-align: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: pointer;
+
+}
+
+.movieTitle:hover {
+    color: rgb(255, 196, 4);
+}
+
+
+
+
+.stars {
+    margin-left: 10px;
+    font-size: 10px;
+
+}
+
+
+
+
+
+.movieTitle::-webkit-scrollbar {
+    width: 6px;
+    /* Ширина полосы прокрутки */
+}
+
+
+
+.movieTitle::-webkit-scrollbar-thumb {
+    background-color: #646464;
+    border-radius: 5px;
+    /* Цвет полосы прокрутки */
+}
