@@ -1,6 +1,6 @@
 import React from 'react';
-import { Routes, Route, NavLink, useParams } from 'react-router-dom';
-import { Home, Movies, NotFound } from '../pages/index';
+import { Routes, Route } from 'react-router-dom';
+import { Home, Movies } from '../pages/index';
 import { MovieDetails } from '.';
 import { SharedLayout } from './SharedLayout/SharedLayout';
 import Reviews from './Reviews/Reviews';
