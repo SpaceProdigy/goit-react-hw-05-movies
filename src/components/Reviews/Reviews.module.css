@@ -1,0 +1,15 @@
+.table {
+
+    margin: 0 auto;
+    /* margin: 16px; */
+
+    @media (min-width: 576px) {
+        width: 80%;
+
+    }
+
+}
+
+.Empty {
+    margin-bottom: 50px;
+}

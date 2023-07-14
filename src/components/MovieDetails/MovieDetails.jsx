@@ -1,25 +1,29 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { apiMovies } from '../../api/api';
-import { Image, Descriptions, ConfigProvider, Rate } from 'antd';
+import { Image, Descriptions, Button } from 'antd';
 import css from './MovieDetails.module.css';
+import Stars from 'components/Stars/Stars';
 
-export const MovieDetails = ({ filmId }) => {
+export const MovieDetails = () => {
   const [movie, setMovies] = useState([]);
+  const { movieId } = useParams();
+
   const getMovieDetails = useCallback(async () => {
-    if (!filmId) {
+    if (!movieId) {
       return;
     }
 
-    const data = await apiMovies('movie/', filmId);
+    const data = await apiMovies('movie/', movieId);
     setMovies(data);
-  }, [filmId]);
+  }, [movieId]);
 
   useEffect(() => {
     getMovieDetails();
   }, [getMovieDetails]);
 
   const {
-    poster_path = '',
+    poster_path,
     title = '',
     name = '',
     overview = '',
@@ -53,21 +57,12 @@ export const MovieDetails = ({ filmId }) => {
         >
           <Descriptions.Item label="Title">{title || name}</Descriptions.Item>
           <Descriptions.Item label="Rating">
-            {vote_average.toFixed(1) + '/ 10'}
-            <br />
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorFillContent: 'grey',
-                },
-              }}
-            >
-              <Rate
-                defaultValue={vote_average / 2}
-                disabled={true}
-                className={css.stars}
-              />
-            </ConfigProvider>
+            <Stars
+              rating={vote_average}
+              secondaryColor={'grey'}
+              numberRating={vote_average}
+              style={css.stars}
+            />
           </Descriptions.Item>
           <Descriptions.Item label="Data release">
             {release_date}
@@ -79,8 +74,20 @@ export const MovieDetails = ({ filmId }) => {
           <Descriptions.Item label="Status">{status}</Descriptions.Item>
           <Descriptions.Item label="Runtime">{runtime} min</Descriptions.Item>
           <Descriptions.Item label="Overview">{overview}</Descriptions.Item>
+          <Descriptions.Item>
+            <div className={css.button}>
+              <Link to="cast">
+                <Button type="primary">Cast</Button>
+              </Link>
+              <Link to="reviews">
+                <Button type="primary">Reviews</Button>
+              </Link>
+            </div>
+          </Descriptions.Item>
         </Descriptions>
       </div>
+
+      <Outlet />
     </>
   );
 };

@@ -1,30 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { apiMovies } from '../../api/api';
 import css from './Home.module.css';
-import { Grid, MovieDetails } from 'components';
-import { Carousel, Rate, ConfigProvider } from 'antd';
+import { Grid } from 'components';
+import { Carousel } from 'antd';
+import Stars from 'components/Stars/Stars';
+import { Link } from 'react-router-dom';
 
 const contentStyle = {
   margin: '0 auto',
   position: 'relative',
   maxWidth: '1280px',
   height: '600px',
-  backgroundRepeat: 'noRepeat',
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
 };
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
-  const [id, setId] = useState(null);
 
   const getMovies = async () => {
     const data = await apiMovies('trending/all/day');
     setMovies(data.results);
-  };
-
-  const handleId = id => {
-    setId(id);
   };
 
   useEffect(() => {
@@ -33,7 +27,7 @@ export const Home = () => {
 
   return (
     <>
-      <Carousel autoplay>
+      <Carousel autoplay autoplaySpeed={5000}>
         {movies.length > 0 &&
           movies
             .slice(0, 5)
@@ -44,23 +38,21 @@ export const Home = () => {
                     style={{
                       ...contentStyle,
                       background: `linear-gradient(86.47deg, #111111 33.63%, rgba(17, 17, 17, 0) 76.86%), url('https://image.tmdb.org/t/p/original${backdrop_path}')`,
+                      backgroundRepeat: 'noRepeat',
+                      backgroundPosition: 'center',
+                      backgroundSize: 'cover',
                     }}
                   >
                     <div className={css.details}>
-                      <h2 className={css.filmTitle}>{title || name}</h2>
-                      <ConfigProvider
-                        theme={{
-                          token: {
-                            colorFillContent: 'grey',
-                          },
-                        }}
-                      >
-                        <Rate
-                          defaultValue={vote_average / 2}
-                          disabled={true}
-                          className={css.stars}
-                        />
-                      </ConfigProvider>
+                      <Link to={`/movies/${id}`}>
+                        <h2 className={css.filmTitle}>{title || name}</h2>
+                      </Link>
+                      <Stars
+                        rating={vote_average}
+                        secondaryColor={'white'}
+                        numberRating={vote_average}
+                        style={css.stars}
+                      />
                       <p className={css.overview}>
                         {overview.slice(0, 150)}...
                       </p>
@@ -72,8 +64,7 @@ export const Home = () => {
       </Carousel>
 
       <h2 className={css.title}>Trending today </h2>
-      <Grid arr={movies} filmId={handleId} />
-      <MovieDetails filmId={id} />
+      <Grid arr={movies} />
     </>
   );
 };
