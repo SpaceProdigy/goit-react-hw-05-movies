@@ -33,3 +33,9 @@
         max-width: 30%;
     }
 }
+
+.Pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}

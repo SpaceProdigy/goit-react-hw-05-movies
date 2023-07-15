@@ -4,7 +4,7 @@ import { Col, Row, Image } from 'antd';
 import css from './Grid.module.css';
 import Stars from 'components/Stars/Stars';
 
-export const Grid = ({ arr }) => {
+const Grid = ({ arr }) => {
   if (arr.length < 1 || !arr) {
     return;
   }
@@ -46,3 +46,5 @@ export const Grid = ({ arr }) => {
     </Row>
   );
 };
+
+export default Grid;

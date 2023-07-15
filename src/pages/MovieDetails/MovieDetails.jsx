@@ -4,8 +4,9 @@ import { apiMovies } from '../../api/api';
 import { Image, Descriptions, Button } from 'antd';
 import css from './MovieDetails.module.css';
 import Stars from 'components/Stars/Stars';
+import ScrollToTop from 'components/ScrollToTop/ScrollToTop';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovies] = useState([]);
   const { movieId } = useParams();
 
@@ -86,8 +87,10 @@ export const MovieDetails = () => {
           </Descriptions.Item>
         </Descriptions>
       </div>
-
+      <ScrollToTop />
       <Outlet />
     </>
   );
 };
+
+export default MovieDetails;

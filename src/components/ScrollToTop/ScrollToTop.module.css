@@ -1,0 +1,12 @@
+.UpCircleOutlined {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    font-size: 50px;
+    color: rgb(92, 91, 86);
+    z-index: 100;
+}
+
+.UpCircleOutlined:hover {
+    color: rgb(255, 196, 4);
+}

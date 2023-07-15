@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Header, Link, Logo, Name, NameLink } from './SharedLayout.styled';
 import logo from '../../images/logo.png';
 
-export const SharedLayout = () => {
+const SharedLayout = () => {
   return (
     <>
       <Header>
@@ -25,3 +25,5 @@ export const SharedLayout = () => {
     </>
   );
 };
+
+export default SharedLayout;

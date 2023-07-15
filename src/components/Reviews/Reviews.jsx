@@ -1,4 +1,4 @@
-import { ConfigProvider, Descriptions, Empty } from 'antd';
+import { Avatar, Empty, List } from 'antd';
 import { apiMovies } from 'api/api';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -22,28 +22,28 @@ const Reviews = () => {
   }, [getMovieDetails]);
   return (
     <>
-      <ConfigProvider
-        theme={{
-          token: {
-            colonMarginLeft: '10px',
-          },
-        }}
-      >
-        <Descriptions className={css.table} bordered column={1}>
-          <Descriptions.Item className={css.item} label="Author">
-            Content
-          </Descriptions.Item>
-          {reviews?.length > 0 &&
-            reviews.map(({ content, id, author }) => (
-              <Descriptions.Item key={id} label={author}>
-                {content}
-              </Descriptions.Item>
-            ))}
-        </Descriptions>
-        {reviews?.length < 1 && (
-          <Empty className={css.Empty} description={<span>No Reviews</span>} />
-        )}
-      </ConfigProvider>
+      {reviews.length !== 0 ? (
+        <List
+          className={css.List}
+          itemLayout="horizontal"
+          dataSource={reviews}
+          renderItem={({ content, author }, index) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={
+                  <Avatar
+                    src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
+                  />
+                }
+                title={author}
+                description={content}
+              />
+            </List.Item>
+          )}
+        />
+      ) : (
+        <Empty className={css.Empty} description={<span>No Reviews</span>} />
+      )}
     </>
   );
 };

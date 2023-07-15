@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { apiMovies } from '../../api/api';
 import css from './Home.module.css';
-import { Grid } from 'components';
-import { Carousel } from 'antd';
+
+import { Carousel, Pagination } from 'antd';
 import Stars from 'components/Stars/Stars';
 import { Link } from 'react-router-dom';
+import ScrollToTop from 'components/ScrollToTop/ScrollToTop';
+import Grid from 'components/Grid/Grid';
 
 const contentStyle = {
   margin: '0 auto',
@@ -13,17 +15,24 @@ const contentStyle = {
   height: '600px',
 };
 
-export const Home = () => {
+const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [totalMovies, setTotalMovies] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const getMovies = async () => {
-    const data = await apiMovies('trending/all/day');
+  const getMovies = useCallback(async () => {
+    const data = await apiMovies('trending/all/day', `?page=${currentPage}`);
     setMovies(data.results);
+    setTotalMovies(data.total_results);
+  }, [currentPage]);
+
+  const onChange = numberPage => {
+    setCurrentPage(numberPage);
   };
 
   useEffect(() => {
     getMovies();
-  }, []);
+  }, [getMovies]);
 
   return (
     <>
@@ -37,7 +46,7 @@ export const Home = () => {
                   <div
                     style={{
                       ...contentStyle,
-                      background: `linear-gradient(86.47deg, #111111 33.63%, rgba(17, 17, 17, 0) 76.86%), url('https://image.tmdb.org/t/p/original${backdrop_path}')`,
+                      backgroundImage: `linear-gradient(86.47deg, #111111 33.63%, rgba(17, 17, 17, 0) 76.86%), url('https://image.tmdb.org/t/p/original${backdrop_path}')`,
                       backgroundRepeat: 'noRepeat',
                       backgroundPosition: 'center',
                       backgroundSize: 'cover',
@@ -65,6 +74,16 @@ export const Home = () => {
 
       <h2 className={css.title}>Trending today </h2>
       <Grid arr={movies} />
+      <Pagination
+        defaultPageSize={20}
+        className={css.Pagination}
+        onChange={onChange}
+        total={totalMovies}
+        showTotal={total => `Total ${total} films`}
+      />
+      <ScrollToTop />
     </>
   );
 };
+
+export default Home;

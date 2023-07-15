@@ -1,7 +1,9 @@
 import { Card, Carousel, Empty, Image } from 'antd';
 import { apiMovies } from 'api/api';
+
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import css from './Cast.module.css';
 
 const Cast = () => {
@@ -84,6 +86,7 @@ const Cast = () => {
             </Card>
           );
         })}
+
       {actors?.length < 1 && (
         <Empty className={css.Empty} description={<span>No Reviews</span>} />
       )}
