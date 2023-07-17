@@ -1,4 +1,5 @@
 import { Rate, ConfigProvider } from 'antd';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const Stars = ({ rating, secondaryColor, numberRating, style }) => {
@@ -19,6 +20,13 @@ const Stars = ({ rating, secondaryColor, numberRating, style }) => {
       </ConfigProvider>
     )
   );
+};
+
+Stars.propTypes = {
+  rating: PropTypes.number.isRequired,
+  secondaryColor: PropTypes.string,
+  numberRating: PropTypes.number,
+  style: PropTypes.string,
 };
 
 export default Stars;

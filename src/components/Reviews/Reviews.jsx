@@ -1,27 +1,47 @@
-import { Avatar, Empty, List } from 'antd';
+import { Avatar, Empty, List, Typography } from 'antd';
 import { apiMovies } from 'api/api';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import css from './Reviews.module.css';
+import NotFound from 'pages/NotFound/NotFound';
+import Spiner from 'components/Spiner/Spiner';
+const { Paragraph } = Typography;
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const getMovieDetails = useCallback(async () => {
-    if (!movieId) {
-      return;
-    }
+    setIsLoading(true);
+    setError(null);
+    try {
+      if (!movieId) {
+        return;
+      }
 
-    const { results } = await apiMovies('movie/', movieId + '/reviews');
-    setReviews(results);
+      const { results } = await apiMovies('movie/', movieId + '/reviews');
+      setReviews(results);
+    } catch (error) {
+      console.log(error);
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [movieId]);
 
   useEffect(() => {
     getMovieDetails();
   }, [getMovieDetails]);
-  return (
-    <>
+
+  if (error) {
+    return <NotFound />;
+  }
+  return isLoading ? (
+    <Spiner />
+  ) : (
+    <div>
       {reviews.length !== 0 ? (
         <List
           className={css.List}
@@ -36,7 +56,16 @@ const Reviews = () => {
                   />
                 }
                 title={author}
-                description={content}
+                description={
+                  <Paragraph
+                    ellipsis={{
+                      symbol: 'more',
+                      expandable: true,
+                    }}
+                  >
+                    {content}
+                  </Paragraph>
+                }
               />
             </List.Item>
           )}
@@ -44,7 +73,7 @@ const Reviews = () => {
       ) : (
         <Empty className={css.Empty} description={<span>No Reviews</span>} />
       )}
-    </>
+    </div>
   );
 };
 

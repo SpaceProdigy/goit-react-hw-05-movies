@@ -6,6 +6,8 @@ import { Carousel, Pagination } from 'antd';
 import Stars from 'components/Stars/Stars';
 import { Link } from 'react-router-dom';
 import ScrollToTop from 'components/ScrollToTop/ScrollToTop';
+import Spiner from 'components/Spiner/Spiner';
+import NotFound from 'pages/NotFound/NotFound';
 import Grid from 'components/Grid/Grid';
 
 const contentStyle = {
@@ -19,20 +21,44 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [paginationVisible, setPaginationVisible] = useState(null);
 
   const getMovies = useCallback(async () => {
-    const data = await apiMovies('trending/all/day', `?page=${currentPage}`);
-    setMovies(data.results);
-    setTotalMovies(data.total_results);
-  }, [currentPage]);
+    setIsLoading(true);
+    setError(null);
+    setPaginationVisible(true);
 
+    try {
+      const data = await apiMovies('trending/all/day', `?page=${currentPage}`);
+      setMovies(data.results);
+      setTotalMovies(data.total_results);
+      setPaginationVisible(false);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [currentPage]);
+  const scrollTo = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
   const onChange = numberPage => {
     setCurrentPage(numberPage);
+    scrollTo();
   };
 
   useEffect(() => {
     getMovies();
   }, [getMovies]);
+
+  if (error) {
+    return <NotFound />;
+  }
 
   return (
     <>
@@ -72,15 +98,28 @@ const Home = () => {
             )}
       </Carousel>
 
-      <h2 className={css.title}>Trending today </h2>
-      <Grid arr={movies} />
-      <Pagination
-        defaultPageSize={20}
-        className={css.Pagination}
-        onChange={onChange}
-        total={totalMovies}
-        showTotal={total => `Total ${total} films`}
-      />
+      {isLoading ? (
+        <Spiner />
+      ) : (
+        <>
+          <h2 className={css.title}>Trending today </h2>
+          <Grid arr={movies} />
+        </>
+      )}
+
+      {totalMovies !== 0 && totalMovies > 20 && (
+        <div className={css.PaginationBox}>
+          <Pagination
+            defaultCurrent={1}
+            defaultPageSize={20}
+            className={css.Pagination}
+            total={totalMovies > 2000 ? 2000 : totalMovies}
+            showSizeChanger="false"
+            onChange={onChange}
+            disabled={paginationVisible}
+          />
+        </div>
+      )}
       <ScrollToTop />
     </>
   );

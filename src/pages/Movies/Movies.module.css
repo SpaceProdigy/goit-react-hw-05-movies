@@ -5,6 +5,10 @@
 
 }
 
+.Wer {
+    background: #000;
+}
+
 .Wrapper {
     margin: 0 auto;
     width: 320px;
@@ -18,4 +22,8 @@
     display: flex;
     justify-content: center;
     margin: 20px;
+}
+
+.YoutubeOutlined {
+    font-size: 30px;
 }

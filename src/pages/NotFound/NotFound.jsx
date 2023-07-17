@@ -3,6 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const NotFound = () => {
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   return (
     <>
       <Result
@@ -11,7 +15,9 @@ const NotFound = () => {
         subTitle="Sorry, the page you visited does not exist."
         extra={
           <Link to="/">
-            <Button type="primary">Back Home</Button>
+            <Button onClick={handleReload} type="primary">
+              Back Home
+            </Button>
           </Link>
         }
       />
