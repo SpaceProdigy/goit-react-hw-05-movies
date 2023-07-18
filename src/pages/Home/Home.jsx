@@ -9,6 +9,7 @@ import ScrollToTop from 'components/ScrollToTop/ScrollToTop';
 import Spiner from 'components/Spiner/Spiner';
 import NotFound from 'pages/NotFound/NotFound';
 import Grid from 'components/Grid/Grid';
+import ModalTrailer from 'components/Modal/Modal';
 
 const contentStyle = {
   margin: '0 auto',
@@ -24,6 +25,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [paginationVisible, setPaginationVisible] = useState(null);
+  const [isAutoplay, setIsAutoplay] = useState(true);
 
   const getMovies = useCallback(async () => {
     setIsLoading(true);
@@ -52,6 +54,10 @@ const Home = () => {
     scrollTo();
   };
 
+  const handleStop = e => {
+    setIsAutoplay(e);
+  };
+
   useEffect(() => {
     getMovies();
   }, [getMovies]);
@@ -62,7 +68,7 @@ const Home = () => {
 
   return (
     <>
-      <Carousel autoplay autoplaySpeed={5000}>
+      <Carousel autoplay={isAutoplay} autoplaySpeed={5000}>
         {movies.length > 0 &&
           movies
             .slice(0, 5)
@@ -91,6 +97,12 @@ const Home = () => {
                       <p className={css.overview}>
                         {overview.slice(0, 150)}...
                       </p>
+                      <ModalTrailer
+                        onStop={handleStop}
+                        videoKey={id}
+                        title={title}
+                        name={name}
+                      />
                     </div>
                   </div>
                 </div>

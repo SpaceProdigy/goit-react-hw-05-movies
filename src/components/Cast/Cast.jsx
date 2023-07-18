@@ -85,7 +85,7 @@ const Cast = () => {
                   >
                     <div className={css.box}>
                       <p>{name}</p>
-                      <p>Character: {character}</p>
+                      {character ?? <p>Character: {character}</p>}
                     </div>
                   </div>
                 </div>

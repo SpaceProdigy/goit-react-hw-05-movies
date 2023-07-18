@@ -1,28 +1,8 @@
-import { Result, Button } from 'antd';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const NotFound = () => {
-  const handleReload = () => {
-    window.location.reload();
-  };
-
-  return (
-    <>
-      <Result
-        status="404"
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
-        extra={
-          <Link to="/">
-            <Button onClick={handleReload} type="primary">
-              Back Home
-            </Button>
-          </Link>
-        }
-      />
-    </>
-  );
+  return <Navigate to="/" />;
 };
 
 export default NotFound;

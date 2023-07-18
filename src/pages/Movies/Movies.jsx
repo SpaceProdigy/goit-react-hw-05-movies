@@ -51,6 +51,9 @@ const Movies = () => {
       setMovies(data.results);
       setTotalMovies(data.total_results);
       setPaginationVisible(false);
+      if (query !== '' && data.results.length === 0) {
+        toast.info('Movie not found 🍿', myToast);
+      }
     } catch (error) {
       setError(true);
     } finally {

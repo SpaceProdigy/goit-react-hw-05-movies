@@ -1,0 +1,25 @@
+.text {
+    display: inline;
+    margin-right: 20px;
+    color: white;
+
+    &:hover {
+        color: yellow;
+    }
+}
+
+.iframe {
+    height: 320px;
+    border: none;
+
+}
+
+.icon {
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+        color: yellow;
+    }
+}

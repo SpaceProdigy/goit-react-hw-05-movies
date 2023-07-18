@@ -1,15 +1,16 @@
 .Text {
     height: 100%;
     width: 100%;
-
-
 }
+
+
 
 .Wer {
     background: #000;
 }
 
 .Wrapper {
+    position: relative;
     margin: 0 auto;
     width: 320px;
     height: 40px;
