@@ -98,17 +98,16 @@ const Movies = () => {
       {isLoading ? <Spiner /> : <Grid arr={movies} />}
       <>
         {totalMovies !== 0 && totalMovies > 20 && (
-          <div className={css.PaginationBox}>
-            <Pagination
-              defaultCurrent={1}
-              defaultPageSize={20}
-              className={css.Pagination}
-              total={totalMovies > 2000 ? 2000 : totalMovies}
-              showSizeChanger="false"
-              onChange={onChange}
-              disabled={paginationVisible}
-            />
-          </div>
+          <Pagination
+            defaultCurrent={1}
+            defaultPageSize={20}
+            className={css.Pagination}
+            total={totalMovies > 2000 ? 2000 : totalMovies}
+            showSizeChanger={false}
+            hideOnSinglePage={true}
+            onChange={onChange}
+            disabled={paginationVisible}
+          />
         )}
         <ScrollToTop />
       </>

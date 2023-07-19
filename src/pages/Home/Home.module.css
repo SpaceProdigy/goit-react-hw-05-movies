@@ -35,19 +35,11 @@
 }
 
 .Pagination {
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-
+    text-align: center;
+    margin: 20px 0;
 }
 
-.PaginationBox {
-    margin: 0 auto;
-    width: 350px;
-    overflow: hidden;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
+
 
 
 .icon {
